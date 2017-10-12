@@ -11,7 +11,6 @@ use Vyuldashev\XmlToArray\XmlToArray;
 class XmlToArrayTest extends TestCase
 {
     /** @dataProvider data
-     *
      * @param array $array
      */
     public function test(array $array)
@@ -47,13 +46,13 @@ class XmlToArrayTest extends TestCase
                         'name' => 'Sauron',
                         'weapon' => 'Evil Eye',
                     ],
-                ]
+                ],
             ],
             [
                 [
                     'good_guy' => [
                         'name' => [
-                            '_cdata' => '<h1>Luke Skywalker</h1>'
+                            '_cdata' => '<h1>Luke Skywalker</h1>',
                         ],
                         'weapon' => 'Lightsaber',
                     ],

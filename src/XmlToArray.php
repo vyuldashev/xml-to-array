@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Vyuldashev\XmlToArray;
 
 use DOMAttr;
-use DOMCdataSection;
-use DOMDocument;
-use DOMElement;
-use DOMNamedNodeMap;
 use DOMText;
+use DOMElement;
+use DOMDocument;
+use DOMCdataSection;
+use DOMNamedNodeMap;
 
 class XmlToArray
 {
@@ -31,7 +31,7 @@ class XmlToArray
     protected function convertAttributes(DOMNamedNodeMap $nodeMap): ?array
     {
         if ($nodeMap->length === 0) {
-            return null;
+            return;
         }
 
         $result = [];
@@ -49,7 +49,7 @@ class XmlToArray
         $result = $this->convertAttributes($element->attributes);
 
         foreach ($element->childNodes as $node) {
-            if($node instanceof DOMCdataSection) {
+            if ($node instanceof DOMCdataSection) {
                 $result['_cdata'] = $node->data;
 
                 continue;
