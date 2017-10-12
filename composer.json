@@ -1,0 +1,30 @@
+{
+  "name": "vyuldashev/xml-to-array",
+  "description": "Convert xml to an array",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Vladimir Yuldashev",
+      "email": "misterio92@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.4",
+    "larapack/dd": "^1.1",
+    "spatie/array-to-xml": "^2.7"
+  },
+  "autoload": {
+    "psr-4": {
+      "Vyuldashev\\XmlToArray\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Vyuldashev\\XmlToArray\\Test\\": "tests"
+    }
+  }
+}
