@@ -31,7 +31,7 @@ class XmlToArray
     protected function convertAttributes(DOMNamedNodeMap $nodeMap): ?array
     {
         if ($nodeMap->length === 0) {
-            return;
+            return null;
         }
 
         $result = [];
