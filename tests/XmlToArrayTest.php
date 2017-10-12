@@ -27,6 +27,18 @@ class XmlToArrayTest extends TestCase
             [
                 [
                     'good_guy' => [
+                        'name' => 'Luke Skywalker',
+                        'weapon' => 'Lightsaber',
+                    ],
+                    'bad_guy' => [
+                        'name' => 'Sauron',
+                        'weapon' => 'Evil Eye',
+                    ],
+                ],
+            ],
+            [
+                [
+                    'good_guy' => [
                         '_attributes' => ['attr1' => 'value'],
                         'name' => 'Luke Skywalker',
                         'weapon' => 'Lightsaber',
