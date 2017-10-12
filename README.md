@@ -2,7 +2,7 @@
 
 This package provides a very simple class to convert an xml string to an array.
 
-Inspired by Spatie's [array-to-xml](https://github.com/spatie/array-to-xml) package. ❤️ 
+Inspired by Spatie's [array-to-xml](https://github.com/spatie/array-to-xml) ❤️ 
 
 ## Install
 
