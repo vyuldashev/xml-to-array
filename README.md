@@ -16,7 +16,7 @@ Inspired by Spatie's [array-to-xml](https://github.com/spatie/array-to-xml) ‚ù§Ô
 You can install this package via composer.
 
 ``` bash
-composer require vyuldaashev/xml-to-array
+composer require vyuldashev/xml-to-array
 ```
 
 ## Usage
