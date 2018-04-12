@@ -44,9 +44,28 @@ class XmlToArray
         return ['_attributes' => $result];
     }
 
+    protected function isHomogenous(Array $arr) {
+        $firstValue = current($arr);
+        foreach ($arr as $val) {
+            if ($firstValue !== $val) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     protected function convertDomElement(DOMElement $element)
     {
+        $sameNames = false;
         $result = $this->convertAttributes($element->attributes);
+
+        if( count($element->childNodes)  > 1){
+            $childNodeNames = [];
+            foreach ($element->childNodes as $key => $node) {
+                $childNodeNames[] = $node->nodeName;
+            }
+            $sameNames = $this->isHomogenous($childNodeNames);
+        }
 
         foreach ($element->childNodes as $node) {
             if ($node instanceof DOMCdataSection) {
