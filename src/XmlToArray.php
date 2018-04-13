@@ -67,7 +67,7 @@ class XmlToArray
             $sameNames = $this->isHomogenous($childNodeNames);
         }
 
-        foreach ($element->childNodes as $node) {
+        foreach ($element->childNodes as $key => $node) {
             if ($node instanceof DOMCdataSection) {
                 $result['_cdata'] = $node->data;
 
@@ -79,7 +79,13 @@ class XmlToArray
                 continue;
             }
             if ($node instanceof DOMElement) {
-                $result[$node->nodeName] = $this->convertDomElement($node);
+
+                if( $sameNames ) {
+                    $indexName = $node->nodeName.($key + 1) ;
+                    $result[$node->nodeName][$key] = $this->convertDomElement($node);
+                } else {
+                    $result[$node->nodeName] = $this->convertDomElement($node);
+                }
 
                 continue;
             }
