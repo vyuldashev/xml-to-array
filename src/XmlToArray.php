@@ -44,7 +44,8 @@ class XmlToArray
         return ['_attributes' => $result];
     }
 
-    protected function isHomogenous(Array $arr) {
+    protected function isHomogenous(array $arr)
+    {
         $firstValue = current($arr);
         foreach ($arr as $val) {
             if ($firstValue !== $val) {
@@ -59,7 +60,7 @@ class XmlToArray
         $sameNames = false;
         $result = $this->convertAttributes($element->attributes);
 
-        if( count($element->childNodes)  > 1){
+        if (count($element->childNodes) > 1) {
             $childNodeNames = [];
             foreach ($element->childNodes as $key => $node) {
                 $childNodeNames[] = $node->nodeName;
@@ -80,7 +81,7 @@ class XmlToArray
             }
             if ($node instanceof DOMElement) {
 
-                if( $sameNames ) {
+                if ($sameNames) {
                     $result[$node->nodeName][$key] = $this->convertDomElement($node);
                 } else {
                     $result[$node->nodeName] = $this->convertDomElement($node);
