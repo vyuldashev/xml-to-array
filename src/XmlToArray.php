@@ -60,7 +60,7 @@ class XmlToArray
         $sameNames = false;
         $result = $this->convertAttributes($element->attributes);
 
-        if (count($element->childNodes) > 1) {
+        if ($element->childNodes->length > 1) {
             $childNodeNames = [];
             foreach ($element->childNodes as $key => $node) {
                 $childNodeNames[] = $node->nodeName;

@@ -1,9 +1,13 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Vyuldashev\XmlToArray\Test;
+
 use PHPUnit\Framework\TestCase;
 use Spatie\ArrayToXml\ArrayToXml;
 use Vyuldashev\XmlToArray\XmlToArray;
+
 class XmlToArrayTest extends TestCase
 {
     /** @dataProvider data
@@ -60,13 +64,14 @@ class XmlToArrayTest extends TestCase
         ];
     }
 
-    /** @test data
-    * /** @dataProvider sameNameData
-     * @param xml $xml
+    /** @dataProvider sameNameData
+     * @param array $array
+     * @test
      */
     public function sameNameTest(array $array)
     {
         $xml = ArrayToXml::convert($array, 'items');
+        $convertedArr = XmlToArray::convert($xml);
         $this->assertSame(['items' => $array], XmlToArray::convert($xml));
     }
 
@@ -76,41 +81,23 @@ class XmlToArrayTest extends TestCase
             [
                 [
                     'Facilities' => [
-                                'Facility' => [
-                                    [
-                                        '_attributes' => [
-                                                'Code' => '*EC',
-                                            ],
-                                        '_cdata' => 'Earliest check-in at 14:00 ',
-                                    ],
-                                    [
-                                        '_attributes' => [
-                                                'Code' => '*LF',
-                                            ],
-                                        '_cdata' => '1 lift ',
-                                    ],
-                                    [
-                                        '_attributes' => [
-                                                'Code' => '*RS',
-                                            ],
-                                        '_cdata' => 'Room Service from 18:00 to 21:00 ',
-                                    ],
-                                    [
-                                        '_attributes' => [
-                                                'Code' => '*IN',
-                                            ],
-                                        '_cdata' => 'Internet via television ',
-                                    ],
-                                    [
-                                        '_attributes' => [
-                                                'Code' => '*AC',
-                                            ],
-                                        '_cdata' => 'Air conditioning ',
-                                    ],
-                                ],
+                        'Facility' => [
+                            [
+                                '_attributes' => ['Code'=>'*EC'],
+                                '_cdata' =>  'Earliest check-in at 14:00',
+                            ],
+                            [
+                                '_attributes' => ['Code'=>'*LF'],
+                                '_cdata' =>  '1 lift',
+                            ],
+                            [
+                                '_attributes' => ['Code'=>'*RS'],
+                                '_cdata' =>  'Room Service from 18:00 to 21:00',
+                            ],
+                        ],
                     ],
                 ],
-            ],
+            ]
         ];
     }
 }
