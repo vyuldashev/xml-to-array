@@ -16,7 +16,6 @@ class XmlToArrayTest extends TestCase
     public function test(array $array)
     {
         $xml = ArrayToXml::convert($array, 'items');
-
         $this->assertSame(['items' => $array], XmlToArray::convert($xml));
     }
 
@@ -62,6 +61,43 @@ class XmlToArrayTest extends TestCase
                     ],
                 ],
             ],
+        ];
+    }
+
+    /** @dataProvider sameNameData
+     * @param array $array
+     * @test
+     */
+    public function sameNameTest(array $array)
+    {
+        $xml = ArrayToXml::convert($array, 'items');
+        $convertedArr = XmlToArray::convert($xml);
+        $this->assertSame(['items' => $array], XmlToArray::convert($xml));
+    }
+
+    public function sameNameData()
+    {
+        return [
+            [
+                [
+                    'Facilities' => [
+                        'Facility' => [
+                            [
+                                '_attributes' => ['Code'=>'*EC'],
+                                '_cdata' =>  'Earliest check-in at 14:00',
+                            ],
+                            [
+                                '_attributes' => ['Code'=>'*LF'],
+                                '_cdata' =>  '1 lift',
+                            ],
+                            [
+                                '_attributes' => ['Code'=>'*RS'],
+                                '_cdata' =>  'Room Service from 18:00 to 21:00',
+                            ],
+                        ],
+                    ],
+                ],
+            ]
         ];
     }
 }
