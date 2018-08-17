@@ -1,15 +1,15 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace Vyuldashev\XmlToArray;
 
 use DOMAttr;
-use DOMText;
-use DOMElement;
-use DOMDocument;
 use DOMCdataSection;
+use DOMDocument;
+use DOMElement;
 use DOMNamedNodeMap;
+use DOMText;
 
 class XmlToArray
 {
@@ -28,7 +28,7 @@ class XmlToArray
         return $converter->toArray();
     }
 
-    protected function convertAttributes(DOMNamedNodeMap $nodeMap): ?array
+    protected function convertAttributes(DOMNamedNodeMap $nodeMap)
     {
         if ($nodeMap->length === 0) {
             return null;
