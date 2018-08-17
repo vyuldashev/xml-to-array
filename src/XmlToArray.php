@@ -38,6 +38,7 @@ class XmlToArray
 
         /** @var DOMAttr $item */
         foreach ($nodeMap as $item) {
+            var_dump('attr_name', $item->name);
             $result[$item->name] = $item->value;
         }
 
@@ -69,18 +70,21 @@ class XmlToArray
         }
 
         foreach ($element->childNodes as $key => $node) {
+            if (is_string($result)) {
+                return $result;
+            }
+
             if ($node instanceof DOMCdataSection) {
                 $result['_cdata'] = $node->data;
 
                 continue;
             }
-            if ($node instanceof DOMText) {
+            if ($node instanceof DOMText && !empty(trim($node->textContent))) {
                 $result = $node->textContent;
 
                 continue;
             }
             if ($node instanceof DOMElement) {
-
                 if ($sameNames) {
                     $result[$node->nodeName][$key] = $this->convertDomElement($node);
                 } else {
