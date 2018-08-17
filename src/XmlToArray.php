@@ -38,7 +38,6 @@ class XmlToArray
 
         /** @var DOMAttr $item */
         foreach ($nodeMap as $item) {
-            var_dump('attr_name', $item->name);
             $result[$item->name] = $item->value;
         }
 
