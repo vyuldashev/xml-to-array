@@ -97,7 +97,7 @@ class XmlToArrayTest extends TestCase
                         ],
                     ],
                 ],
-            ]
+            ],
         ];
     }
 }
