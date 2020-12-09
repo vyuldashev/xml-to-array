@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Vyuldashev\XmlToArray;
 
 use DOMAttr;
-use DOMText;
-use DOMElement;
-use DOMDocument;
 use DOMCdataSection;
+use DOMDocument;
+use DOMElement;
 use DOMNamedNodeMap;
+use DOMText;
 
 class XmlToArray
 {
@@ -52,6 +52,7 @@ class XmlToArray
                 return false;
             }
         }
+
         return true;
     }
 
@@ -80,7 +81,6 @@ class XmlToArray
                 continue;
             }
             if ($node instanceof DOMElement) {
-
                 if ($sameNames) {
                     $result[$node->nodeName][$key] = $this->convertDomElement($node);
                 } else {
