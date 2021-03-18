@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Vyuldashev\XmlToArray;
 
 use DOMAttr;
-use DOMCdataSection;
-use DOMDocument;
-use DOMElement;
-use DOMNamedNodeMap;
 use DOMText;
+use DOMElement;
+use DOMDocument;
+use DOMCdataSection;
+use DOMNamedNodeMap;
 
 class XmlToArray
 {
@@ -21,11 +21,13 @@ class XmlToArray
         $this->document->loadXML($xml);
     }
 
-    public static function convert(string $xml): array
+    public static function convert(string $xml)
     {
         $converter = new static($xml);
+        $array = $converter->toArray();
+        $array = $array[$array["@root"]];
 
-        return $converter->toArray();
+        return $array;
     }
 
     protected function convertAttributes(DOMNamedNodeMap $nodeMap): ?array
@@ -52,7 +54,6 @@ class XmlToArray
                 return false;
             }
         }
-
         return true;
     }
 
@@ -81,6 +82,7 @@ class XmlToArray
                 continue;
             }
             if ($node instanceof DOMElement) {
+
                 if ($sameNames) {
                     $result[$node->nodeName][$key] = $this->convertDomElement($node);
                 } else {
@@ -105,6 +107,7 @@ class XmlToArray
                 $result[$child->nodeName] = $this->convertDomElement($child);
             }
         }
+        $result['@root'] = $this->document->documentElement->tagName;
 
         return $result;
     }
