@@ -21,11 +21,13 @@ class XmlToArray
         $this->document->loadXML($xml);
     }
 
-    public static function convert(string $xml)
+    public static function convert(string $xml, $outputRoot = false)
     {
         $converter = new static($xml);
         $array = $converter->toArray();
-        $array = $array[$array["@root"]];
+        if($outputRoot==false) {
+            $array = $array[$array["@root"]];
+        }
 
         return $array;
     }
