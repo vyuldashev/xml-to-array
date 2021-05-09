@@ -44,29 +44,20 @@ class XmlToArray
         return ['_attributes' => $result];
     }
 
-    protected function isHomogenous(array $arr)
-    {
-        $firstValue = current($arr);
-        foreach ($arr as $val) {
-            if ($firstValue !== $val) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     protected function convertDomElement(DOMElement $element)
     {
-        $sameNames = false;
         $result = $this->convertAttributes($element->attributes);
+
+        $sameNamesOccurrences = [];
 
         if ($element->childNodes->length > 1) {
             $childNodeNames = [];
-            foreach ($element->childNodes as $key => $node) {
+
+            foreach ($element->childNodes as $node) {
                 $childNodeNames[] = $node->nodeName;
             }
-            $sameNames = $this->isHomogenous($childNodeNames);
+
+            $sameNamesOccurrences = array_count_values($childNodeNames);
         }
 
         foreach ($element->childNodes as $key => $node) {
@@ -81,10 +72,13 @@ class XmlToArray
                 continue;
             }
             if ($node instanceof DOMElement) {
-                if ($sameNames) {
-                    $result[$node->nodeName][$key] = $this->convertDomElement($node);
+                $nodeName = $node->nodeName;
+                $hasSameName = array_key_exists($nodeName, $sameNamesOccurrences) && $sameNamesOccurrences[$nodeName] > 1;
+
+                if ($hasSameName) {
+                    $result[$nodeName][$key] = $this->convertDomElement($node);
                 } else {
-                    $result[$node->nodeName] = $this->convertDomElement($node);
+                    $result[$nodeName] = $this->convertDomElement($node);
                 }
 
                 continue;
