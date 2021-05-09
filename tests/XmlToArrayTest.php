@@ -71,6 +71,9 @@ class XmlToArrayTest extends TestCase
     public function sameNameTest(array $array)
     {
         $xml = ArrayToXml::convert($array, 'items');
+
+        dd(XmlToArray::convert($xml));
+
         $this->assertSame(['items' => $array], XmlToArray::convert($xml));
     }
 
