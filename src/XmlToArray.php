@@ -49,6 +49,7 @@ class XmlToArray
         $result = $this->convertAttributes($element->attributes);
 
         $sameNamesOccurrences = [];
+        $sameNodeNameIndexes = [];
 
         if ($element->childNodes->length > 1) {
             $childNodeNames = [];
@@ -60,7 +61,7 @@ class XmlToArray
             $sameNamesOccurrences = array_count_values($childNodeNames);
         }
 
-        foreach ($element->childNodes as $key => $node) {
+        foreach ($element->childNodes as $node) {
             if ($node instanceof DOMCdataSection) {
                 $result['_cdata'] = $node->data;
 
@@ -75,11 +76,22 @@ class XmlToArray
                 $nodeName = $node->nodeName;
                 $hasSameName = array_key_exists($nodeName, $sameNamesOccurrences) && $sameNamesOccurrences[$nodeName] > 1;
 
-                if ($hasSameName) {
-                    $result[$nodeName][$key] = $this->convertDomElement($node);
-                } else {
+                if ($hasSameName === false) {
                     $result[$nodeName] = $this->convertDomElement($node);
+                    continue;
                 }
+
+                // If we already have a child node with the same name, we need to increment
+                // and keep track of their index.
+
+                if (isset($sameNodeNameIndexes[$nodeName])) {
+                    $key = $sameNodeNameIndexes[$nodeName] + 1;
+                } else {
+                    $key = 0;
+                }
+
+                $result[$nodeName][$key] = $this->convertDomElement($node);
+                $sameNodeNameIndexes[$nodeName] = $key;
 
                 continue;
             }

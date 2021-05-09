@@ -72,6 +72,9 @@ class XmlToArrayTest extends TestCase
     {
         $xml = ArrayToXml::convert($array, 'items');
         $convertedArr = XmlToArray::convert($xml);
+
+        dd($convertedArr);
+
         $this->assertSame(['items' => $array], XmlToArray::convert($xml));
     }
 
@@ -82,6 +85,20 @@ class XmlToArrayTest extends TestCase
                 [
                     'Facilities' => [
                         'Facility' => [
+                            [
+                                '_attributes' => ['Code'=>'*EC'],
+                                '_cdata' =>  'Earliest check-in at 14:00',
+                            ],
+                            [
+                                '_attributes' => ['Code'=>'*LF'],
+                                '_cdata' =>  '1 lift',
+                            ],
+                            [
+                                '_attributes' => ['Code'=>'*RS'],
+                                '_cdata' =>  'Room Service from 18:00 to 21:00',
+                            ],
+                        ],
+                        'Factories' => [
                             [
                                 '_attributes' => ['Code'=>'*EC'],
                                 '_cdata' =>  'Earliest check-in at 14:00',
