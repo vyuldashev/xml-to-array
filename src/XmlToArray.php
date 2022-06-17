@@ -76,7 +76,11 @@ class XmlToArray
                 continue;
             }
             if ($node instanceof DOMText) {
-                $result = $node->textContent;
+                if (isset($result['_attributes'])) {
+                    $result['_value'] = $node->textContent;
+                } else {
+                    $result = $node->textContent;
+                }
 
                 continue;
             }
