@@ -12,7 +12,7 @@ class XmlToArrayTest extends TestCase
 {
     /**
      * @dataProvider data
-     * 
+     *
      * @param  array  $array
      */
     public function test(array $array)
