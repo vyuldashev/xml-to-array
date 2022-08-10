@@ -12,7 +12,8 @@ class XmlToArrayTest extends TestCase
 {
     /**
      * @dataProvider data
-     * @param array $array
+     * 
+     * @param  array  $array
      */
     public function test(array $array)
     {
@@ -67,7 +68,8 @@ class XmlToArrayTest extends TestCase
 
     /**
      * @dataProvider sameNameData
-     * @param array $array
+     *
+     * @param  array  $array
      * @test
      */
     public function sameNameTest(array $array)
@@ -105,7 +107,8 @@ class XmlToArrayTest extends TestCase
 
     /**
      * @dataProvider sameMultiDimensionalData
-     * @param array $array
+     *
+     * @param  array  $array
      * @test
      */
     public function sameMultiDimensionalTest(array $array)
