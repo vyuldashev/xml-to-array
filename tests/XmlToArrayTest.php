@@ -10,7 +10,8 @@ use Vyuldashev\XmlToArray\XmlToArray;
 
 class XmlToArrayTest extends TestCase
 {
-    /** @dataProvider data
+    /**
+     * @dataProvider data
      * @param array $array
      */
     public function test(array $array)
@@ -44,7 +45,7 @@ class XmlToArrayTest extends TestCase
                     'bad_guy' => [
                         'name' => 'Sauron',
                         'weapon' => 'Evil Eye',
-                    ]
+                    ],
                 ],
             ],
             [
@@ -64,7 +65,8 @@ class XmlToArrayTest extends TestCase
         ];
     }
 
-    /** @dataProvider sameNameData
+    /**
+     * @dataProvider sameNameData
      * @param array $array
      * @test
      */
@@ -101,7 +103,8 @@ class XmlToArrayTest extends TestCase
         ];
     }
 
-    /** @dataProvider sameMultiDimensionalData
+    /**
+     * @dataProvider sameMultiDimensionalData
      * @param array $array
      * @test
      */
@@ -128,9 +131,9 @@ class XmlToArrayTest extends TestCase
                             ['name' => 'Sauron', 'weapon' => 'Evil Eye'],
                             ['name' => 'Darth Vader', 'weapon' => 'Lightsaber'],
                         ],
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ];
     }
 }

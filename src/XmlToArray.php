@@ -79,7 +79,7 @@ class XmlToArray
             }
             if ($node instanceof DOMElement) {
                 if ($sameNames[$node->nodeName]) { // Truthy — When $sameNames['foo'] > 0
-                    if (!array_key_exists($node->nodeName, $result)) { // Setup $result['foo']
+                    if (! array_key_exists($node->nodeName, $result)) { // Setup $result['foo']
                         $result[$node->nodeName] = [];
                     }
 
