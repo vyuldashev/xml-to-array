@@ -44,32 +44,26 @@ class XmlToArray
         return ['_attributes' => $result];
     }
 
-    protected function isHomogenous(array $arr)
-    {
-        $firstValue = current($arr);
-        foreach ($arr as $val) {
-            if ($firstValue !== $val) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     protected function convertDomElement(DOMElement $element)
     {
-        $sameNames = false;
+        $sameNames = [];
         $result = $this->convertAttributes($element->attributes);
 
-        if ($element->childNodes->length > 1) {
-            $childNodeNames = [];
-            foreach ($element->childNodes as $key => $node) {
-                $childNodeNames[] = $node->nodeName;
+        // Creates an index which counts each key, starting at zero, e.g. ['foo' => 2, 'bar' => 0]
+        $childNodeNames = [];
+        foreach ($element->childNodes as $key => $node) {
+            if (array_key_exists($node->nodeName, $sameNames)) {
+                $sameNames[$node->nodeName] += 1;
+            } else {
+                $sameNames[$node->nodeName] = 0;
             }
-            $sameNames = $this->isHomogenous($childNodeNames);
         }
 
         foreach ($element->childNodes as $key => $node) {
+            if (is_null($result)) {
+                $result = [];
+            }
+
             if ($node instanceof DOMCdataSection) {
                 $result['_cdata'] = $node->data;
 
@@ -84,10 +78,14 @@ class XmlToArray
                 continue;
             }
             if ($node instanceof DOMElement) {
-                if ($sameNames) {
-                    $result[$node->nodeName][$key] = $this->convertDomElement($node);
+                if ($sameNames[$node->nodeName]) { // Truthy — When $sameNames['foo'] > 0
+                    if (!array_key_exists($node->nodeName, $result)) { // Setup $result['foo']
+                        $result[$node->nodeName] = [];
+                    }
+
+                    $result[$node->nodeName][$key] = $this->convertDomElement($node); // Store as $result['foo'][*]
                 } else {
-                    $result[$node->nodeName] = $this->convertDomElement($node);
+                    $result[$node->nodeName] = $this->convertDomElement($node); // Store as $result['foo']
                 }
 
                 continue;
