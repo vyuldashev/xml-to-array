@@ -10,8 +10,10 @@ use Vyuldashev\XmlToArray\XmlToArray;
 
 class XmlToArrayTest extends TestCase
 {
-    /** @dataProvider data
-     * @param array $array
+    /**
+     * @dataProvider data
+     *
+     * @param  array  $array
      */
     public function test(array $array)
     {
@@ -64,8 +66,10 @@ class XmlToArrayTest extends TestCase
         ];
     }
 
-    /** @dataProvider sameNameData
-     * @param array $array
+    /**
+     * @dataProvider sameNameData
+     *
+     * @param  array  $array
      * @test
      */
     public function sameNameTest(array $array)
@@ -94,6 +98,41 @@ class XmlToArrayTest extends TestCase
                                 '_attributes' => ['Code'=>'*RS'],
                                 '_cdata' =>  'Room Service from 18:00 to 21:00',
                             ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider sameMultiDimensionalData
+     *
+     * @param  array  $array
+     * @test
+     */
+    public function sameMultiDimensionalTest(array $array)
+    {
+        $xml = ArrayToXml::convert($array, 'items');
+        $convertedArr = XmlToArray::convert($xml);
+        $this->assertSame(['items' => $array], XmlToArray::convert($xml));
+    }
+
+    public function sameMultiDimensionalData()
+    {
+        return [
+            [
+                [
+                    'Good_guys' => [
+                        'Guy' => [
+                            ['name' => 'Luke Skywalker', 'weapon' => 'Lightsaber'],
+                            ['name' => 'Captain America', 'weapon' => 'Shield'],
+                        ],
+                    ],
+                    'Bad_guys' => [
+                        'Guy' => [
+                            ['name' => 'Sauron', 'weapon' => 'Evil Eye'],
+                            ['name' => 'Darth Vader', 'weapon' => 'Lightsaber'],
                         ],
                     ],
                 ],
