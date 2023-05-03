@@ -18,7 +18,7 @@ class XmlToArrayTest extends TestCase
     public function test(array $array)
     {
         $xml = ArrayToXml::convert($array, 'items');
-        
+
         $this->assertSame(['items' => $array], XmlToArray::convert($xml));
     }
 
@@ -71,6 +71,7 @@ class XmlToArrayTest extends TestCase
      * @dataProvider sameNameData
      *
      * @param  array  $array
+     * 
      * @test
      */
     public function sameNameTest(array $array)
@@ -112,6 +113,7 @@ class XmlToArrayTest extends TestCase
      * @dataProvider sameMultiDimensionalData
      *
      * @param  array  $array
+     * 
      * @test
      */
     public function sameMultiDimensionalTest(array $array)
@@ -147,6 +149,7 @@ class XmlToArrayTest extends TestCase
 
     /**
      *  @dataProvider sameMultiDimensionalData
+     * 
      *  @test 
      */
     public function convert_WhenXmlHasNewLinesAndCarrigageReturns_ShouldCorrectConvertToArray(array $array)
