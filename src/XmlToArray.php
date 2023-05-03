@@ -23,6 +23,8 @@ class XmlToArray
 
     public static function convert(string $xml): array
     {
+        $xml = trim(preg_replace('/\s\s+/', '', $xml));
+
         $converter = new static($xml);
 
         return $converter->toArray();
