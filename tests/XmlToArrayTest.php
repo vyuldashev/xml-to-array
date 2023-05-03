@@ -18,6 +18,7 @@ class XmlToArrayTest extends TestCase
     public function test(array $array)
     {
         $xml = ArrayToXml::convert($array, 'items');
+        
         $this->assertSame(['items' => $array], XmlToArray::convert($xml));
     }
 
@@ -75,8 +76,10 @@ class XmlToArrayTest extends TestCase
     public function sameNameTest(array $array)
     {
         $xml = ArrayToXml::convert($array, 'items');
+
         $convertedArr = XmlToArray::convert($xml);
-        $this->assertSame(['items' => $array], XmlToArray::convert($xml));
+
+        $this->assertSame(['items' => $array], $convertedArr);
     }
 
     public function sameNameData()
@@ -114,8 +117,10 @@ class XmlToArrayTest extends TestCase
     public function sameMultiDimensionalTest(array $array)
     {
         $xml = ArrayToXml::convert($array, 'items');
+
         $convertedArr = XmlToArray::convert($xml);
-        $this->assertSame(['items' => $array], XmlToArray::convert($xml));
+
+        $this->assertSame(['items' => $array], $convertedArr);
     }
 
     public function sameMultiDimensionalData()
@@ -138,5 +143,44 @@ class XmlToArrayTest extends TestCase
                 ],
             ],
         ];
+    }
+
+    /**
+     *  @dataProvider sameMultiDimensionalData
+     *  @test 
+     */
+    public function convert_WhenXmlHasNewLinesAndCarrigageReturns_ShouldCorrectConvertToArray(array $array)
+    {
+        $xml = "
+        <?xml version=\"1.0\"?> \r\n
+        <root> \r\n
+            <Good_guys> \r\n
+                <Guy> \r\n
+                    <name>Luke Skywalker</name> \r\n
+                    <weapon>Lightsaber</weapon> \r\n
+                </Guy> \r\n
+                <Guy> \r\n
+                    <name>Captain America</name> \r\n
+                    <weapon>Shield</weapon> \r\n
+                </Guy> \r\n
+            </Good_guys> \r\n
+            <Bad_guys> \r\n
+                <Guy> \r\n
+                    <name>Sauron</name> \r\n
+                    <weapon>Evil Eye</weapon> \r\n
+                </Guy> \r\n
+                <Guy> \r\n
+                    <name>Darth Vader</name> \r\n
+                    <weapon>Lightsaber</weapon> \r\n
+                </Guy> \r\n
+            </Bad_guys> \r\n
+        </root>
+        ";
+
+        $arrayExpected['root'] = $array;
+
+        $convertedArr = XmlToArray::convert($xml);
+
+        $this->assertSame($arrayExpected, $convertedArr);
     }
 }
